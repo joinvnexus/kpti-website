@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KPTI Website
+
+A modern Next.js 14 web application for KPTI (Kishoreganj Polytechnic Institute) with admin panel, admission management, and payment integration.
+
+## Features
+
+- **Public Pages**: Home, About, Courses, Gallery, Notices, Contact, Admission
+- **Admin Dashboard**: Manage admissions, courses, gallery, notices, and settings
+- **Authentication**: NextAuth.js with role-based access (admin/user)
+- **Database**: Prisma ORM with SQLite (easily switchable to PostgreSQL/MySQL)
+- **Payment Integration**: bKash payment gateway support
+- **PDF Generation**: Generate admission confirmation PDFs
+- **Responsive Design**: Mobile-friendly UI with modern styling
+
+## Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: Prisma ORM
+- **Authentication**: NextAuth.js
+- **Payments**: bKash API
+- **PDF**: Custom PDF generation
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+2. Set up environment variables:
+   ```bash
+   cp .env.example .env
+   ```
+   Configure your database URL, NextAuth secret, and API keys in `.env`.
+
+3. Set up the database:
+   ```bash
+   npx prisma migrate dev
+   npx prisma db seed
+   ```
+
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000)
+
+## Project Structure
+
+```
+app/
+├── (admin)/              # Admin panel routes
+│   ├── dashboard/        # Admin dashboard
+│   ├── admissions/       # Manage admissions
+│   ├── courses/          # Manage courses
+│   ├── gallery/          # Manage gallery
+│   ├── notices/          # Manage notices
+│   └── settings/         # Admin settings
+├── (public)/             # Public website routes
+│   ├── about/           # About page
+│   ├── admission/        # Admission form
+│   ├── contact/          # Contact page
+│   ├── courses/          # Course listings
+│   ├── gallery/          # Public gallery
+│   └── notices/          # Public notices
+├── admin-login/          # Admin login page
+├── api/                  # API routes
+│   ├── admission/        # Admission endpoints
+│   ├── auth/             # Authentication endpoints
+│   └── bkash/            # Payment endpoints
+└── admission-success/    # Payment success page
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Admin Credentials
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Default admin credentials (after seeding):
+- **Email**: admin@kpti.edu.bd
+- **Password**: admin123
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## API Endpoints
+
+- `POST /api/admission` - Submit admission form
+- `POST /api/admission/pdf` - Generate admission PDF
+- `POST /api/bkash/create` - Create payment
+- `POST /api/bkash/callback` - Payment callback
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [NextAuth.js Documentation](https://next-auth.js.org)
+- [Tailwind CSS](https://tailwindcss.com)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
