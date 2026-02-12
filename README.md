@@ -77,8 +77,8 @@ app/
 ## Admin Credentials
 
 Default admin credentials (after seeding):
-- **Email**: admin@kpti.edu.bd
-- **Password**: admin123
+- **Email**: admin@textkpti.local
+- **Password**: admin@123
 
 ## API Endpoints
 

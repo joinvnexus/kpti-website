@@ -19,7 +19,7 @@ async function main() {
     data: {
       name: 'Super Admin',
       email: 'admin@textkpti.local',
-      passwordHash: '$2b$10$fMLkqZ764S9j29C/n14yEun70ZHfTBJCq.ObIZJPolJWQwA8kyRHm',
+      passwordHash: '$2b$10$u4vWjs5cxYHbf.mBBQR7XuPrNba1.9dW8a9yROR0on6ZoLcyC93fK',
       role: 'ADMIN'
     }
   })
