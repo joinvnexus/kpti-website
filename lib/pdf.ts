@@ -19,13 +19,20 @@ export async function generateAdmissionPDF(
   drawLine("TEXTKPTI Admission Receipt", 18);
   drawLine("");
   drawLine(`Name: ${admission.name}`);
+  drawLine(`Phone: ${admission.phone}`);
+  if (admission.email) drawLine(`Email: ${admission.email}`);
+  if (admission.address) drawLine(`Address: ${admission.address}`);
+  drawLine("");
   drawLine(`Course: ${admission.course.title}`);
   drawLine(`Duration: ${admission.course.duration}`);
   drawLine(`Fee: ${admission.paymentAmount ?? admission.course.fee} BDT`);
-  drawLine(`Status: ${admission.status}`);
-  drawLine(`Transaction ID: ${admission.paymentTrxId ?? "N/A"}`);
+  drawLine(`Status: ${admission.status.toUpperCase()}`);
+  if (admission.paymentTrxId) {
+    drawLine(`Transaction ID: ${admission.paymentTrxId}`);
+  }
+  drawLine(`Submitted: ${admission.submittedAt.toLocaleDateString('en-BD')}`);
   drawLine("");
-  drawLine("Institute Address:", 14);
+  drawLine("Institute Information:", 14);
   drawLine("Dokkinbazar, Kulaura, Moulvibazar-3230");
   drawLine("Phones: 01777-301073, 01797-755856");
   drawLine("Map: https://maps.app.goo.gl/", 10);
