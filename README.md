@@ -23,15 +23,13 @@ kpti-website/
 ├── app/                          # App Router
 │   ├── (public)/                 # Public routes (no auth)
 │   │   ├── layout.tsx            # Header, footer, nav
-│   │   ├── page.tsx              # Home
+│   │   ├── page.tsx              # Home (Landing page with ALL courses)
 │   │   ├── about/page.tsx
-│   │   ├── courses/
-│   │   │   ├── [slug]/page.tsx   # Dynamic course detail
-│   │   │   └── page.tsx          # List
 │   │   ├── admission/page.tsx    # Form + bKash flow
 │   │   ├── gallery/page.tsx
 │   │   ├── notices/page.tsx
 │   │   └── contact/page.tsx
+│   │   # Note: No separate course pages - all courses on landing page
 │   ├── admin/                    # Protected routes
 │   │   ├── layout.tsx            # Sidebar + header
 │   │   ├── dashboard/page.tsx
