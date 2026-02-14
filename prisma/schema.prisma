@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")  // Supabase pooled (transaction mode via Supavisor)
+  // url      = env("DATABASE_URL")  // Supabase pooled (transaction mode via Supavisor)
   // directUrl = env("DIRECT_URL")  // Optional for Prisma CLI/migrations (direct connection)
 }
 

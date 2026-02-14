@@ -36,7 +36,7 @@ export default function AdminLoginPage() {
     if (res?.error) {
       setError("ইমেইল বা পাসওয়ার্ড সঠিক নয়");
     } else {
-      router.push("/dashboard");
+      router.push("admin/dashboard");
     }
   };
 
