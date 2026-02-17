@@ -1,23 +1,14 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { ArrowRight, BookOpen, Calendar, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
+import HeroContent from "@/components/home/HeroContent";
+import CoursesGrid from "@/components/home/CoursesGrid";
+import WhyChooseUsSection from "@/components/home/WhyChooseUsSection";
+import NoticesGrid from "@/components/home/NoticesGrid";
+import GalleryGrid from "@/components/home/GalleryGrid";
 
-export const revalidate = 60; // Revalidate every minute
+export const revalidate = 60; // ISR: revalidate every 60 seconds
 
 async function getCourses() {
   return await prisma.course.findMany({
@@ -29,160 +20,196 @@ async function getCourses() {
 async function getNotices() {
   return await prisma.notice.findMany({
     where: { isActive: true },
-    take: 3,
+    take: 4,
     orderBy: { createdAt: "desc" },
   });
 }
 
+async function getGalleryImages() {
+  try {
+    return await prisma.galleryImage.findMany({
+      take: 8,
+      orderBy: { uploadedAt: "desc" },
+    });
+  } catch {
+    return [];
+  }
+}
+
 export default async function HomePage() {
-  const [courses, notices] = await Promise.all([getCourses(), getNotices()]);
+  const [courses, notices, galleryImages] = await Promise.all([
+    getCourses(),
+    getNotices(),
+    getGalleryImages(),
+  ]);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-slate-900 text-white py-20 lg:py-32">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl lg:text-6xl font-bold mb-6">
-            Kulaura Professional Technology Institute
-          </h1>
-          <p className="text-xl lg:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto">
-            BTEB Approved Computer & Spoken English Training Center.
-            <br />
-            Efficiency • Skill • Success
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="#courses">
-              <Button size="lg" variant="secondary" className="w-full sm:w-auto">
-                কোর্স দেখুন <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/admission">
-              <Button size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700">
-                ভর্তি হোন
-              </Button>
-            </Link>
-          </div>
-          <p className="mt-8 text-sm text-slate-400 font-medium tracking-wide">
-            মাত্র ৬টি বিশেষায়িত কোর্স | সরকারি সনদপ্রাপ্ত
-          </p>
-        </div>
+    <div className="flex flex-col min-h-screen w-full">
+      {/* 1. HERO SECTION */}
+      <section className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center py-20 lg:py-0">
+        <HeroContent />
       </section>
 
-      {/* Courses Section */}
-      <section id="courses" className="py-16 bg-slate-50">
+      {/* 2. COURSES SHOWCASE SECTION */}
+      <section
+        id="courses"
+        className="w-full py-16 md:py-24 bg-white scroll-mt-20"
+      >
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900">আমাদের কোর্সসমূহ</h2>
-            <p className="text-slate-600 mt-2">দক্ষতা অর্জন করে নিজের ক্যারিয়ার গড়ুন</p>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              আমাদের কোর্সসমূহ
+            </h2>
+            <p className="text-lg text-gray-600">
+              মাত্র ৬টি নির্বাচিত কোর্স – সরকারি সার্টিফিকেট সহ
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {courses.map((course) => (
-              <Card key={course.id} className="flex flex-col h-full hover:shadow-lg transition-shadow">
-                <div className="h-48 bg-slate-200 flex items-center justify-center rounded-t-lg">
-                  <BookOpen className="h-16 w-16 text-slate-400" />
-                  {/* TODO: Add course image if available */}
-                </div>
-                <CardHeader>
-                  <div className="flex justify-between items-start mb-2">
-                    <Badge variant="outline">{course.duration}</Badge>
-                    <Badge variant="secondary">৳ {course.fee}</Badge>
-                  </div>
-                  <CardTitle className="text-xl">{course.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-1">
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                    {course.description || "No description available."}
-                  </p>
-                  {course.syllabus && (
-                    <Accordion type="single" collapsible className="w-full">
-                      <AccordionItem value="syllabus" className="border-b-0">
-                        <AccordionTrigger className="py-2 text-sm hover:no-underline text-blue-600">
-                          সিলেবাস দেখুন
-                        </AccordionTrigger>
-                        <AccordionContent className="text-sm text-slate-600">
-                          <div className="whitespace-pre-line">{course.syllabus}</div>
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                  )}
-                </CardContent>
-                <CardFooter className="pt-0">
-                  <Link href={`/admission?course=${course.slug}`} className="w-full">
-                    <Button className="w-full">Enroll Now</Button>
-                  </Link>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
+          <CoursesGrid courses={courses} />
 
           {courses.length === 0 && (
-            <div className="text-center py-10 text-slate-500">
-              কোর্স লোড করা যাচ্ছে না অথবা ডাটাবেজে কোন কোর্স নেই।
+            <div className="text-center py-16 text-gray-500">
+              <p className="text-lg">
+                কোর্স লোড করা যাচ্ছে না। দয়া করে পরে আবার চেষ্টা করুন।
+              </p>
             </div>
           )}
         </div>
       </section>
 
-      {/* Notices Teaser Section */}
-      <section className="py-16">
+      {/* 3. WHY CHOOSE US SECTION */}
+      <WhyChooseUsSection />
+
+      {/* 4. LATEST NOTICES TEASER */}
+      <section className="w-full py-12 md:py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-end mb-8">
+          <div className="flex justify-between items-end mb-12">
             <div>
-              <h2 className="text-3xl font-bold text-slate-900">নোটিশ বোর্ড</h2>
-              <p className="text-slate-600 mt-2">সর্বশেষ আপডেট এবং ঘোষণা</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                সাম্প্রতিক নোটিস
+              </h2>
+              <p className="text-gray-600 mt-2">সব আপডেট এবং ঘোষণা</p>
             </div>
-            <Link href="/notices" className="text-blue-600 hover:underline hidden sm:inline-flex items-center">
-              সব নোটিশ <ArrowRight className="ml-1 h-4 w-4" />
+            <Link
+              href="/notices"
+              className="text-blue-600 hover:text-blue-700 hidden md:inline-flex items-center gap-2 font-medium"
+            >
+              সব নোটিস দেখুন
+              <ChevronRight className="h-4 w-4" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {notices.map((notice) => (
-              <Card key={notice.id}>
-                <CardHeader>
-                  <div className="flex items-center text-sm text-muted-foreground mb-2">
-                    <Calendar className="mr-2 h-4 w-4" />
-                    {new Date(notice.createdAt).toLocaleDateString("bn-BD")}
-                  </div>
-                  <CardTitle className="text-lg line-clamp-2">{notice.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground line-clamp-3">
-                    {notice.content}
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Link href="/notices" className="text-sm text-blue-600 hover:underline">
-                    বিস্তারিত পড়ুন
-                  </Link>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
+          <NoticesGrid notices={notices} />
 
-          <div className="mt-8 text-center sm:hidden">
+          <div className="mt-8 text-center md:hidden">
             <Link href="/notices">
-              <Button variant="outline">সব নোটিশ দেখুন</Button>
+              <Button variant="outline" size="lg">
+                সব নোটিস দেখুন
+              </Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Contact CTA */}
-      <section className="py-20 bg-blue-600 text-white text-center">
+      {/* 5. GALLERY TEASER SECTION */}
+      <section className="w-full py-12 md:py-16 bg-gray-50/50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-6">আমাদের সাথে যোগাযোগ করুন</h2>
-          <p className="text-xl text-blue-100 mb-8">ভর্তি বা যেকোনো তথ্যের জন্য কল করুন</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="secondary" size="lg" asChild>
-              <a href="tel:01777301073">Call 01777-301073</a>
-            </Button>
-            <Link href="/contact">
-              <Button variant="outline" size="lg" className="bg-transparent text-white border-white hover:bg-white hover:text-blue-600">
-                অফিস ভিজিট করুন
+          <div className="flex justify-between items-end mb-12">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                আমাদের ক্যাম্পাস
+              </h2>
+              <p className="text-gray-600 mt-2">
+                প্রতিষ্ঠানের অভ্যন্তরীণ দৃশ্য
+              </p>
+            </div>
+            <Link
+              href="/gallery"
+              className="text-blue-600 hover:text-blue-700 hidden md:inline-flex items-center gap-2 font-medium"
+            >
+              সম্পূর্ণ গ্যালারি
+              <ChevronRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          <GalleryGrid galleryImages={galleryImages} />
+
+          <div className="mt-8 text-center md:hidden">
+            <Link href="/gallery">
+              <Button variant="outline" size="lg">
+                সম্পূর্ণ গ্যালারি
               </Button>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. FINAL CTA SECTION WITH MAP */}
+      <section className="w-full py-16 md:py-24 bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text CTA */}
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                আজই ভর্তি হোন
+              </h2>
+              <p className="text-xl text-blue-100 mb-8">
+                সীমিত আসন! এখনই আপনার ভবিষ্যৎ গড়ে তুলুন
+              </p>
+
+              <div className="space-y-4 mb-8">
+                <div>
+                  <p className="text-sm text-blue-100 mb-2">
+                    যোগাযোগের জন্য কল করুন:
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <a
+                      href="tel:01777301073"
+                      className="text-lg font-bold hover:underline"
+                    >
+                      01777-301073
+                    </a>
+                    <a
+                      href="tel:01797755856"
+                      className="text-lg font-bold hover:underline"
+                    >
+                      01797-755856
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3 text-sm text-blue-50 mb-8">
+                <p>
+                  <strong>ঠিকানা:</strong> কুলাউড়া প্রফেশনাল টেকনোলজি
+                  ইনস্টিটিউট, কুলাউড়া, মৌলভীবাজার, সিলেট
+                </p>
+              </div>
+
+              <Link href="/admission">
+                <Button
+                  size="lg"
+                  className="bg-white text-blue-600 hover:bg-blue-50 font-bold"
+                >
+                  ভর্তির জন্য যোগাযোগ করুন
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+
+            {/* Right: Map Embed */}
+            <div className="rounded-lg overflow-hidden shadow-lg h-96">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3428.183014836384!2d92.03203650734689!3d24.522302120862776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3751bdb2ca2b799b%3A0xbb4493073163b15e!2sKulaura%20Professional%20Technology%20Institute%20KPTI!5e0!3m2!1sen!2sus!4v1771321705571!5m2!1sen!2sus"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            
+            </div>
           </div>
         </div>
       </section>
