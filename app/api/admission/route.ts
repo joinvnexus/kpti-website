@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { createBkashPayment } from "@/lib/bkash";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
@@ -32,10 +33,17 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  // এখানে চাইলে সাথে সাথে bKash create API কল করতে পারেন।
+  // Create bKash payment session
+  const paymentResult = await createBkashPayment({
+    admissionId: admission.id,
+    amount: course.fee,
+    callbackURL: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/api/bkash/callback`,
+  });
+
   return NextResponse.json({
     success: true,
     admissionId: admission.id,
+    url: paymentResult.paymentURL,
   });
 }
 
