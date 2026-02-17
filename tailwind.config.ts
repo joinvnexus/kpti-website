@@ -56,6 +56,52 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      boxShadow: {
+        "sm-dark": "0 1px 3px rgba(0, 0, 0, 0.3)",
+        "md-dark": "0 4px 6px rgba(0, 0, 0, 0.3)",
+        "lg-dark": "0 10px 15px rgba(0, 0, 0, 0.3)",
+        "glow-primary": "0 0 20px rgba(59, 130, 246, 0.5)",
+        "glow-primary-dark": "0 0 30px rgba(96, 165, 250, 0.4)",
+        "glow-accent": "0 0 15px rgba(16, 185, 129, 0.4)",
+      },
+      animation: {
+        "fade-in": "fadeIn 0.5s ease-in-out",
+        "fade-in-up": "fadeInUp 0.5s ease-out",
+        "fade-in-down": "fadeInDown 0.5s ease-out",
+        "float": "float 3s ease-in-out infinite",
+        "pulse-glow": "pulseGlow 2s infinite",
+        "shimmer": "shimmer 2s infinite",
+        "gradient-shift": "gradient-shift 3s ease infinite",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        fadeInUp: {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        fadeInDown: {
+          "0%": { opacity: "0", transform: "translateY(-10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        pulseGlow: {
+          "0%, 100%": { boxShadow: "0 0 0 0 rgba(59, 130, 246, 0.7)" },
+          "70%": { boxShadow: "0 0 0 10px rgba(59, 130, 246, 0)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-1000px 0" },
+          "100%": { backgroundPosition: "1000px 0" },
+        },
+      },
+      transitionTimingFunction: {
+        smooth: "cubic-bezier(0.4, 0, 0.2, 1)",
+      },
     },
   },
   plugins: [],
