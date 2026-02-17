@@ -1,7 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
-
 /* ============= LIGHT MODE COLORS ============= */
 @layer base {
   :root {
@@ -106,66 +109,104 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
   html {
-    @apply scroll-smooth;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Typography */
   h1 {
-    @apply text-4xl md:text-5xl font-bold tracking-tight;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 3rem;
+      line-height: 1;
+    }
   }
 
   h2 {
-    @apply text-3xl md:text-4xl font-bold tracking-tight;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  @media (min-width: 768px) {
+    h2 {
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+    }
   }
 
   h3 {
-    @apply text-2xl font-semibold tracking-tight;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
   h4 {
-    @apply text-xl font-semibold;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
   }
 
   h5 {
-    @apply text-lg font-semibold;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600;
   }
 
   h6 {
-    @apply text-base font-semibold;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
   }
 
   p {
-    @apply leading-relaxed;
+    line-height: 1.625;
   }
 
   a {
-    @apply text-primary hover:text-primary/80 transition-colors;
+    color: hsl(var(--primary));
+    transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  a:hover {
+    color: hsl(var(--primary) / 0.8);
   }
 
   /* Selection */
   ::selection {
-    @apply bg-primary text-primary-foreground;
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
   }
 
   ::-webkit-scrollbar {
-    @apply w-2;
+    width: 0.5rem;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-muted;
+    background-color: hsl(var(--muted));
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-primary rounded-full hover:bg-primary/80;
+    background-color: hsl(var(--primary));
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--primary) / 0.8);
   }
 }
 
@@ -182,7 +223,7 @@
   }
 
   .animate-gradient-shift {
-    @apply bg-gradient-to-r from-primary via-secondary to-accent;
+    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--secondary)), hsl(var(--accent)));
     background-size: 200% 200%;
     animation: gradient-shift 3s ease infinite;
   }
