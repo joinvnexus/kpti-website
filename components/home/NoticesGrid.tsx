@@ -48,7 +48,7 @@ export default function NoticesGrid({ notices }: NoticesGridProps) {
         <motion.div key={notice.id} variants={itemVariants}>
           <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
             <CardHeader>
-              <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
+              <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
                 <Calendar className="h-4 w-4" />
                 {new Date(notice.createdAt).toLocaleDateString("bn-BD", {
                   year: "numeric",
@@ -61,12 +61,12 @@ export default function NoticesGrid({ notices }: NoticesGridProps) {
               </CardTitle>
             </CardHeader>
             <CardContent className="flex-1">
-              <p className="text-gray-600 text-sm line-clamp-3">
+              <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3">
                 {notice.content}
               </p>
             </CardContent>
             <CardFooter>
-              <Link href="/notices" className="text-blue-600 text-sm font-medium hover:text-blue-700">
+              <Link href="/notices" className="text-blue-600 dark:text-blue-400 text-sm font-medium hover:text-blue-700 dark:hover:text-blue-300">
                 বিস্তারিত পড়ুন →
               </Link>
             </CardFooter>
@@ -75,7 +75,7 @@ export default function NoticesGrid({ notices }: NoticesGridProps) {
       ))}
 
       {notices.length === 0 && (
-        <div className="col-span-full text-center py-10 text-gray-500">
+        <div className="col-span-full text-center py-10 text-gray-500 dark:text-gray-400">
           <p>কোন নোটিস পাওয়া যায়নি।</p>
         </div>
       )}

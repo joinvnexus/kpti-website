@@ -57,9 +57,9 @@ export default function CoursesGrid({ courses }: CoursesGridProps) {
         <motion.div key={course.id} variants={itemVariants}>
           <Card className="flex flex-col h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 overflow-hidden">
             {/* Placeholder Image/Icon */}
-            <div className="h-48 bg-gradient-to-br from-blue-50 to-gray-50 flex items-center justify-center relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-100/20 to-transparent group-hover:opacity-75 transition-opacity" />
-              <BookOpen className="h-20 w-20 text-blue-400 group-hover:scale-110 transition-transform duration-300" />
+            <div className="h-48 bg-gradient-to-br from-blue-50 dark:from-blue-950 to-gray-50 dark:to-gray-900 flex items-center justify-center relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-100/20 dark:from-blue-500/20 to-transparent group-hover:opacity-75 transition-opacity" />
+              <BookOpen className="h-20 w-20 text-blue-400 dark:text-blue-300 group-hover:scale-110 transition-transform duration-300" />
             </div>
 
             {/* Card Content */}
@@ -78,17 +78,17 @@ export default function CoursesGrid({ courses }: CoursesGridProps) {
             </CardHeader>
 
             <CardContent className="flex-1">
-              <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4 line-clamp-3">
                 {course.description || "কোর্সের বিবরণ উপলব্ধ নেই।"}
               </p>
 
               {course.syllabus && (
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="syllabus" className="border-0">
-                    <AccordionTrigger className="py-2 text-sm text-blue-600 hover:text-blue-700 hover:no-underline">
+                    <AccordionTrigger className="py-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:no-underline">
                       সিলেবাস দেখুন
                     </AccordionTrigger>
-                    <AccordionContent className="text-sm text-gray-600 whitespace-pre-line">
+                    <AccordionContent className="text-sm text-gray-600 dark:text-gray-400 whitespace-pre-line">
                       {course.syllabus}
                     </AccordionContent>
                   </AccordionItem>

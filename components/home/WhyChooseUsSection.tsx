@@ -59,10 +59,10 @@ export default function WhyChooseUsSection() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             কেন আমাদের বেছে নেবেন?
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-600 dark:text-gray-400">
             আমরা শিক্ষায় সর্বোচ্চ মান নিশ্চিত করি
           </p>
         </motion.div>
@@ -80,15 +80,15 @@ export default function WhyChooseUsSection() {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="bg-white rounded-lg p-6 text-center hover:shadow-lg transition-shadow"
+                className="bg-white dark:bg-slate-800 rounded-lg p-6 text-center hover:shadow-lg transition-shadow"
               >
-                <div className="mb-4 inline-block p-3 bg-blue-100 rounded-full">
-                  <Icon className="h-8 w-8 text-blue-600" />
+                <div className="mb-4 inline-block p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                  <Icon className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>

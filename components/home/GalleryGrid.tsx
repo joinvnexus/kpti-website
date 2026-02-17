@@ -33,9 +33,9 @@ const itemVariants = {
 export default function GalleryGrid({ galleryImages }: GalleryGridProps) {
   if (galleryImages.length === 0) {
     return (
-      <div className="text-center py-16 bg-white rounded-lg">
-        <ImageIcon className="h-16 w-16 mx-auto text-gray-300 mb-4" />
-        <p className="text-gray-500 mb-6">গ্যালারি চিত্র শীঘ্রই যুক্ত করা হবে</p>
+      <div className="text-center py-16 bg-white dark:bg-slate-800 rounded-lg">
+        <ImageIcon className="h-16 w-16 mx-auto text-gray-300 dark:text-gray-600 mb-4" />
+        <p className="text-gray-500 dark:text-gray-400 mb-6">গ্যালারি চিত্র শীঘ্রই যুক্ত করা হবে</p>
         <Link href="/gallery">
           <Button variant="outline">গ্যালারি দেখুন</Button>
         </Link>

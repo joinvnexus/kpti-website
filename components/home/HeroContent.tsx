@@ -52,7 +52,7 @@ export default function HeroContent() {
 
       {/* Main Title */}
       <motion.h1
-        className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
+        className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight"
         variants={itemVariants}
       >
         কুলাউড়া প্রফেশনাল টেকনোলজি ইন্সটিটিউট
@@ -60,7 +60,7 @@ export default function HeroContent() {
 
       {/* Subtitle */}
       <motion.p
-        className="text-xl md:text-2xl text-gray-700 mb-4 font-medium"
+        className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-4 font-medium"
         variants={itemVariants}
       >
         BTEB অ্যাপ্রুভড | হাতে-কলমে কম্পিউটার ও স্পোকেন ইংরেজি শিক্ষা
@@ -68,7 +68,7 @@ export default function HeroContent() {
 
       {/* Highlight Text */}
       <motion.p
-        className="text-lg md:text-xl text-blue-600 font-bold mb-12"
+        className="text-lg md:text-xl text-blue-600 dark:text-blue-400 font-bold mb-12"
         variants={itemVariants}
       >
         ✨ মাত্র ৬টি নির্বাচিত কোর্স – সরকারি সার্টিফিকেট সহ
@@ -83,7 +83,7 @@ export default function HeroContent() {
           <Button
             size="lg"
             variant="outline"
-            className="border-blue-600 text-blue-600 hover:bg-blue-50"
+            className="border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-950"
           >
             কোর্স দেখুন
             <ChevronRight className="ml-2 h-4 w-4" />
@@ -92,7 +92,7 @@ export default function HeroContent() {
         <Link href="/admission">
           <Button
             size="lg"
-            className="bg-blue-600 hover:bg-blue-700 text-white"
+            className="bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-600"
           >
             এখনই ভর্তি হোন
             <ChevronRight className="ml-2 h-4 w-4" />
