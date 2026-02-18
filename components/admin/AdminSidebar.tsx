@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -111,6 +112,9 @@ export default function AdminSidebar() {
               <SheetTitle className="text-left text-slate-100">
                 KPTI Admin
               </SheetTitle>
+              <SheetDescription className="text-left text-slate-400">
+                Open admin navigation links.
+              </SheetDescription>
             </SheetHeader>
             <div className="flex h-[calc(100%-64px)] flex-col">
               <div className="flex-1 overflow-y-auto p-3">
