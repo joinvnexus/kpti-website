@@ -1,6 +1,6 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ImageIcon } from "lucide-react";
@@ -56,12 +56,11 @@ export default function GalleryGrid({ galleryImages }: GalleryGridProps) {
           variants={itemVariants}
           className="relative h-48 rounded-lg overflow-hidden group cursor-pointer border border-border hover:border-primary transition-all duration-300"
         >
-          <Image
+          <img
             src={image.url}
             alt={image.caption || `Gallery image ${index + 1}`}
-            fill
-            className="object-cover group-hover:scale-110 transition-transform duration-300"
-            sizes="(max-width: 768px) 50vw, 25vw"
+            className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-300"
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-primary/60 transition-all duration-300 flex items-end">
             {image.caption && (
