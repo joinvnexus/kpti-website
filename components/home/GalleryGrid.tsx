@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { ImageIcon } from "lucide-react";
 import { GalleryImage } from "@prisma/client";
 

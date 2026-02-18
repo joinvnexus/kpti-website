@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Facebook, MapPin, Phone, Mail, ArrowRight } from "lucide-react";
+import { Facebook, MapPin, Phone, Mail, ArrowRight, Twitter, Instagram } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -26,6 +26,21 @@ export default function Footer() {
                             >
                                 <Facebook className="h-5 w-5" />
                             </Link>
+                            <Link 
+                                href="#"
+                                className="p-2 rounded-lg hover:bg-secondary/10 text-muted-foreground hover:text-secondary transition-colors"
+                                aria-label="Twitter"
+                                >
+                                    <Twitter className="h-5 w-5" />
+                            </Link>
+                            <Link 
+                                href="#"
+                                className="p-2 rounded-lg hover:bg-accent/10 text-muted-foreground hover:text-accent transition-colors"
+                                aria-label="Instagram"
+                            >
+                                <Instagram className="h-5 w-5" />
+                            </Link>
+
                         </div>
                     </div>
 
