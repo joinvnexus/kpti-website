@@ -40,14 +40,14 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: { duration: 0.5 },
   },
 };
 
 export default function CoursesGrid({ courses }: CoursesGridProps) {
   return (
     <motion.div
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      className="grid-responsive"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
@@ -55,55 +55,62 @@ export default function CoursesGrid({ courses }: CoursesGridProps) {
     >
       {courses.map((course) => (
         <motion.div key={course.id} variants={itemVariants}>
-          <Card className="flex flex-col h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2 overflow-hidden">
-            {/* Placeholder Image/Icon */}
-            <div className="h-48 bg-gradient-to-br from-blue-50 dark:from-blue-950 to-gray-50 dark:to-gray-900 flex items-center justify-center relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-100/20 dark:from-blue-500/20 to-transparent group-hover:opacity-75 transition-opacity" />
-              <BookOpen className="h-20 w-20 text-blue-400 dark:text-blue-300 group-hover:scale-110 transition-transform duration-300" />
+          <div className="card-elevated flex flex-col h-full group overflow-hidden">
+            {/* Image/Icon Section */}
+            <div className="h-48 bg-gradient-subtle flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 group-hover:from-primary/10 group-hover:to-secondary/10 transition-all duration-300" />
+              <BookOpen className="h-20 w-20 text-primary opacity-60 group-hover:scale-110 group-hover:opacity-100 transition-all duration-300" />
             </div>
 
             {/* Card Content */}
-            <CardHeader>
-              <div className="flex gap-2 mb-3 flex-wrap">
-                <Badge variant="outline" className="text-xs">
+            <div className="flex flex-col gap-4 flex-1">
+              {/* Badges & Fee */}
+              <div className="flex gap-2 flex-wrap pt-6 px-6">
+                <span className="badge-muted text-xs">
                   {course.duration}
-                </Badge>
-                <Badge className="bg-blue-100 text-blue-700 font-bold">
+                </span>
+                <span className="badge-primary font-semibold">
                   ৳ {course.fee}
-                </Badge>
+                </span>
               </div>
-              <CardTitle className="text-2xl font-semibold text-gray-900">
-                {course.title}
-              </CardTitle>
-            </CardHeader>
 
-            <CardContent className="flex-1">
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4 line-clamp-3">
-                {course.description || "কোর্সের বিবরণ উপলব্ধ নেই।"}
-              </p>
+              {/* Title */}
+              <div className="px-6">
+                <h3 className="text-xl font-bold text-foreground line-clamp-2">
+                  {course.title}
+                </h3>
+              </div>
 
-              {course.syllabus && (
-                <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value="syllabus" className="border-0">
-                    <AccordionTrigger className="py-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:no-underline">
-                      সিলেবাস দেখুন
-                    </AccordionTrigger>
-                    <AccordionContent className="text-sm text-gray-600 dark:text-gray-400 whitespace-pre-line">
-                      {course.syllabus}
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              )}
-            </CardContent>
+              {/* Description */}
+              <div className="px-6 flex-1">
+                <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                  {course.description || "কোর্সের বিবরণ উপলব্ধ নেই।"}
+                </p>
 
-            <CardFooter className="pt-4 border-t">
-              <Link href={`/admission?course=${course.slug}`} className="w-full">
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                  এখনই ভর্তি হোন
-                </Button>
-              </Link>
-            </CardFooter>
-          </Card>
+                {course.syllabus && (
+                  <Accordion type="single" collapsible className="w-full mt-4">
+                    <AccordionItem value="syllabus" className="border-0">
+                      <AccordionTrigger className="py-2 text-sm text-primary hover:text-primary/80 hover:no-underline">
+                        সিলেবাস দেখুন
+                      </AccordionTrigger>
+                      <AccordionContent className="text-sm text-muted-foreground whitespace-pre-line">
+                        {course.syllabus}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                )}
+              </div>
+
+              {/* CTA Button */}
+              <div className="pt-4 px-6 pb-6 border-t border-border">
+                <Link href={`/admission?course=${course.slug}`} className="w-full block">
+                  <button className="btn-primary w-full">
+                    এখনই ভর্তি হোন
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
         </motion.div>
       ))}
     </motion.div>

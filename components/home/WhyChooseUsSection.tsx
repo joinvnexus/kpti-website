@@ -44,14 +44,14 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: { duration: 0.5 },
   },
 };
 
 export default function WhyChooseUsSection() {
   return (
-    <section className="w-full py-16 md:py-24 bg-gray-50/50">
-      <div className="container mx-auto px-4">
+    <section className="w-full section-padding bg-gradient-subtle">
+      <div className="container-base">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: -20 }}
@@ -59,16 +59,16 @@ export default function WhyChooseUsSection() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            কেন আমাদের বেছে নেবেন?
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+            কেন আমাদের <span className="text-gradient">বেছে নেবেন?</span>
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
+          <p className="text-lg text-muted-foreground">
             আমরা শিক্ষায় সর্বোচ্চ মান নিশ্চিত করি
           </p>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid-responsive"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -80,15 +80,15 @@ export default function WhyChooseUsSection() {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="bg-white dark:bg-slate-800 rounded-lg p-6 text-center hover:shadow-lg transition-shadow"
+                className="card-elevated flex flex-col items-center text-center group hover:-translate-y-1"
               >
-                <div className="mb-4 inline-block p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full">
-                  <Icon className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+                <div className="mb-6 p-4 bg-gradient-subtle group-hover:bg-primary/10 rounded-full transition-colors">
+                  <Icon className="h-8 w-8 text-primary group-hover:scale-110 transition-transform" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                <h3 className="text-lg font-semibold text-foreground mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed flex-1">
                   {feature.description}
                 </p>
               </motion.div>

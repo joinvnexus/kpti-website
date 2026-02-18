@@ -8,7 +8,10 @@ export async function POST(req: NextRequest) {
     amount: number;
   };
 
-  const result = await createBkashPayment({ admissionId, amount });
+  const origin = req.headers.get("origin") || "http://localhost:3000";
+  const callbackURL = `${origin}/api/bkash/callback`;
+
+  const result = await createBkashPayment({ admissionId, amount, callbackURL });
   return NextResponse.json({ url: result.paymentURL });
 }
 

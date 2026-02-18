@@ -31,7 +31,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: { duration: 0.5 },
   },
 };
 
@@ -46,36 +46,44 @@ export default function NoticesGrid({ notices }: NoticesGridProps) {
     >
       {notices.map((notice) => (
         <motion.div key={notice.id} variants={itemVariants}>
-          <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-                <Calendar className="h-4 w-4" />
-                {new Date(notice.createdAt).toLocaleDateString("bn-BD", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+          <div className="card-elevated h-full flex flex-col group hover:-translate-y-1">
+            {/* Header */}
+            <div className="pb-4 border-b border-border">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                <Calendar className="h-4 w-4 text-secondary" />
+                <span>
+                  {new Date(notice.createdAt).toLocaleDateString("bn-BD", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
               </div>
-              <CardTitle className="text-lg line-clamp-2">
+              <h3 className="text-lg font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
                 {notice.title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex-1">
-              <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3">
+              </h3>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 py-4">
+              <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
                 {notice.content}
               </p>
-            </CardContent>
-            <CardFooter>
-              <Link href="/notices" className="text-blue-600 dark:text-blue-400 text-sm font-medium hover:text-blue-700 dark:hover:text-blue-300">
-                বিস্তারিত পড়ুন →
+            </div>
+
+            {/* Footer */}
+            <div className="pt-4 border-t border-border">
+              <Link href="/notices" className="link-primary text-sm font-medium flex items-center gap-1 group">
+                বিস্তারিত পড়ুন
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
-            </CardFooter>
-          </Card>
+            </div>
+          </div>
         </motion.div>
       ))}
 
       {notices.length === 0 && (
-        <div className="col-span-full text-center py-10 text-gray-500 dark:text-gray-400">
+        <div className="col-span-full text-center py-10 text-muted-foreground">
           <p>কোন নোটিস পাওয়া যায়নি।</p>
         </div>
       )}

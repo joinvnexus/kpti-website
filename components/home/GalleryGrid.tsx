@@ -26,18 +26,18 @@ const itemVariants = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.4, ease: "easeOut" },
+    transition: { duration: 0.4 },
   },
 };
 
 export default function GalleryGrid({ galleryImages }: GalleryGridProps) {
   if (galleryImages.length === 0) {
     return (
-      <div className="text-center py-16 bg-white dark:bg-slate-800 rounded-lg">
-        <ImageIcon className="h-16 w-16 mx-auto text-gray-300 dark:text-gray-600 mb-4" />
-        <p className="text-gray-500 dark:text-gray-400 mb-6">গ্যালারি চিত্র শীঘ্রই যুক্ত করা হবে</p>
+      <div className="text-center py-16 card-filled rounded-lg">
+        <ImageIcon className="h-16 w-16 mx-auto text-muted-foreground opacity-30 mb-4" />
+        <p className="text-muted-foreground mb-6">গ্যালারি চিত্র শীঘ্রই যুক্ত করা হবে</p>
         <Link href="/gallery">
-          <Button variant="outline">গ্যালারি দেখুন</Button>
+          <button className="btn-outline">গ্যালারি দেখুন</button>
         </Link>
       </div>
     );
@@ -55,7 +55,7 @@ export default function GalleryGrid({ galleryImages }: GalleryGridProps) {
         <motion.div
           key={image.id}
           variants={itemVariants}
-          className="relative h-48 rounded-lg overflow-hidden group cursor-pointer"
+          className="relative h-48 rounded-lg overflow-hidden group cursor-pointer border border-border hover:border-primary transition-all duration-300"
         >
           <Image
             src={image.url}
@@ -64,13 +64,15 @@ export default function GalleryGrid({ galleryImages }: GalleryGridProps) {
             className="object-cover group-hover:scale-110 transition-transform duration-300"
             sizes="(max-width: 768px) 50vw, 25vw"
           />
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-end">
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-primary/60 transition-all duration-300 flex items-end">
             {image.caption && (
-              <p className="w-full p-3 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+              <p className="w-full p-3 text-primary-foreground text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
                 {image.caption}
               </p>
             )}
           </div>
+          {/* Focus Ring */}
+          <div className="absolute inset-0 border-2 border-secondary opacity-0 group-hover:opacity-20 transition-opacity rounded-lg pointer-events-none" />
         </motion.div>
       ))}
     </motion.div>
