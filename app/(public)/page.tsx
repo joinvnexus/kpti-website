@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import HeroContent from "@/components/home/HeroContent";
 import CoursesGrid from "@/components/home/CoursesGrid";
