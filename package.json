@@ -2,14 +2,18 @@
   "name": "textkpti-website",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "db:push": "prisma db push",
-    "db:seed": "tsx prisma/seed.ts"
-  },
+"scripts": {
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "eslint",
+  "db:push": "prisma db push",
+  "db:seed": "tsx prisma/seed.ts",
+  "seed:content": "tsx prisma/seed-content.ts",
+  "seed:notice": "tsx prisma/seed-notice.ts",
+  "seed:all": "npm run db:seed && npm run seed:content && npm run seed:notice"
+
+},
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   },

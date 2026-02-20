@@ -1,14 +1,5 @@
-import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg'
-import { Pool } from 'pg'
+import { prisma, dbPool } from './prismaClient'
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
-})
-const adapter = new PrismaPg(pool)
-const prisma = new PrismaClient({ adapter })
 
 async function main() {
   console.log('Seeding content (Courses & Notices)...')
@@ -268,8 +259,7 @@ Module 07: Fluency Improvement and Final Assessment
 - Final viva, speaking test, and improvement plan`,
     },
   ]
-
-  for (const course of courses) {
+for (const course of courses) {
     await prisma.course.upsert({
       where: { slug: course.slug },
       update: {
@@ -282,29 +272,8 @@ Module 07: Fluency Improvement and Final Assessment
       create: course,
     })
   }
+
   console.log('Courses seeded successfully')
-
-  // Seed Notices
-  const notices = [
-    {
-      title: 'Admission Going On - January 2026',
-      content: 'Admissions are open for the January-June 2026 session. Limited seats available. Apply now!',
-      isActive: true,
-    },
-    {
-      title: 'Office Closed on Friday',
-      content: 'The institute office will remain closed on Fridays. For urgent queries, call 01777-301073.',
-      isActive: true,
-    },
-  ]
-
-  for (const notice of notices) {
-    const existingNotice = await prisma.notice.findFirst({ where: { title: notice.title } })
-    if (!existingNotice) {
-      await prisma.notice.create({ data: notice })
-    }
-  }
-  console.log('Notices seeded successfully')
 }
 
 main()
@@ -314,5 +283,5 @@ main()
   })
   .finally(async () => {
     await prisma.$disconnect()
-    await pool.end()
+    await dbPool.end()
   })
